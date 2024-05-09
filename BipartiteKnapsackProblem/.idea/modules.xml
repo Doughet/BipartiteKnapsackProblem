@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/BipartiteKnapsackProblem.iml" filepath="$PROJECT_DIR$/.idea/BipartiteKnapsackProblem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BipartiteKnapsackProblem.iml" filepath="$PROJECT_DIR$/BipartiteKnapsackProblem.iml" />
     </modules>
   </component>
 </project>
