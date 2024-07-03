@@ -48,11 +48,7 @@ public class Main {
                 20500,
                 64,
                 2,
-                20500 * 2,
-                64 * 2,
                 5,
-                20500 * 5,
-                64 * 5,
                 resultBundle.infoArray(),
                 resultBundle.valuesArray()
         );
@@ -62,21 +58,30 @@ public class Main {
                 N,
                 20500,
                 64,
-                2,
-                20500 * 2,
-                64 * 2,
-                5,
-                20500 * 5,
-                64 * 5,
+                1,
+                6,
+                resultBundle.infoArray(),
+                resultBundle.valuesArray()
+        );
+
+        BipartiteKnapsackSolver solver3 = new BipartiteKnapsackSolver(
+                P,
+                N,
+                20500,
+                64,
+                1,
+                6,
                 resultBundle.infoArray(),
                 resultBundle.valuesArray()
         );
 
         solver1.useApproach1();
         solver2.useApproach2();
+        solver3.useApproach3(0.2);
 
         List<BipartiteKnapsackSolver.SolutionEntry> solution1 = solver1.getSolution();
         List<BipartiteKnapsackSolver.SolutionEntry> solution2 = solver2.getSolution();
+        List<BipartiteKnapsackSolver.SolutionEntry> solution3 = solver3.getSolution();
 
         BipartiteKnapsackWriter writer1 = new BipartiteKnapsackWriter(solution1);
         BipartiteKnapsackWriter writer2 = new BipartiteKnapsackWriter(solution2);

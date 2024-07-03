@@ -48,7 +48,7 @@ public class BipartiteKnapsackSolver {
     private boolean isFeasible = false;
 
     public BipartiteKnapsackSolver(double p, double n, double p_PER_C, double n_PER_C,
-                                   int c1, double p1, double n1, int c2, double p2, double n2,
+                                   int c1, int c2,
                                    String[][] infoArray, double[][] valuesArray) {
         P = p;
         N = n;
@@ -57,18 +57,18 @@ public class BipartiteKnapsackSolver {
 
         if(c1 < c2){
             C1 = c1;
-            P1 = p1;
-            N1 = n1;
+            P1 = P_PER_C * c1;
+            N1 = N_PER_C * c1;
             C2 = c2;
-            P2 = p2;
-            N2 = n2;
+            P2 = P_PER_C * c2;
+            N2 = N_PER_C * c2;
         }else{
             C1 = c2;
-            P1 = p2;
-            N1 = n2;
+            P1 = P_PER_C * c2;
+            N1 = N_PER_C * c2;
             C2 = c1;
-            P2 = p1;
-            N2 = n1;
+            P2 = P_PER_C * c1;
+            N2 = N_PER_C * c1;
         }
 
         this.infoArray = new String[infoArray.length][infoArray[0].length];
@@ -270,6 +270,99 @@ public class BipartiteKnapsackSolver {
         return -1;
     }
 
+    private int launchApproach3(double threshold){
+        double selectedPalettes = 0;
+        double selectedWeight = 0;
+
+        double nMoyenCamion = N / (C1 + C2);
+        double pMoyenCamion = P / (C1 + C2);
+        double pMoyenPalette = pMoyenCamion / nMoyenCamion;
+
+        double weightPerPaletteLeft = pMoyenPalette;
+
+        while(testMustContinue(selectedWeight, selectedPalettes)){
+
+            double currentMoyenne = selectedWeight / selectedPalettes;
+
+            int selectedIndex = -1;
+
+            if(Math.min(currentMoyenne, pMoyenPalette) / Math.max(currentMoyenne, pMoyenPalette) < threshold){
+                selectedIndex = findClosestObject(valuesArrayE, weightPerPaletteLeft);
+            }
+            else if(currentMoyenne <= pMoyenPalette){
+                selectedIndex = findClosestObjectAbove(valuesArrayE, weightPerPaletteLeft);
+            }else{
+                selectedIndex = findClosestObjectUnder(valuesArrayE, weightPerPaletteLeft);
+            }
+
+            int selectedIndexUnder = findClosestObjectUnder(valuesArrayE, weightPerPaletteLeft);
+
+            if(selectedIndex == -1 && selectedIndexUnder == -1){
+                break;
+            }else if(selectedIndex == -1){
+                selectedIndex = selectedIndexUnder;
+            }
+
+            //ADD TO LIST
+            String code = infoArray[selectedIndex][0];
+            codesSelected.put(code, codesSelected.getOrDefault(code, 0.0) + 1);
+
+            //Decrease the palettes in the table
+            valuesArrayE[selectedIndex][0] -= 1;
+            //UPDATE THE SELECTED PALETTES
+            selectedPalettes += 1;
+            //UPDATE THE SELECTED WEIGHT
+            selectedWeight += valuesArray[selectedIndex][1];
+            //UPDATE THE WEIGHT PER PALETTE
+            weightPerPaletteLeft = (pMoyenCamion * C2 - selectedWeight) / (nMoyenCamion * C2 - selectedPalettes);
+
+            if(selectedPalettes == 61.0){
+                System.out.println();
+            }
+        }
+
+        //In case it is now finished we have to:
+        //test if it's alright now
+
+        if(testFinalConstraint(selectedWeight, selectedPalettes)){
+
+            optimizeAfterFinish2(selectedPalettes, selectedWeight);
+
+            return 0;
+        }
+
+        while(testUnderMax(selectedWeight, selectedPalettes)){
+            int selectedIndex = findClosestObject(valuesArrayE, weightPerPaletteLeft);
+
+            if(selectedIndex == -1 || valuesArrayE[selectedIndex][1] + selectedWeight > P1){
+                selectedIndex = findClosestObjectUnder(valuesArrayE, weightPerPaletteLeft);
+
+                if(selectedIndex == -1 || valuesArrayE[selectedIndex][1] + selectedWeight > P1){
+
+                    break;
+                }
+            }
+
+            //ADD TO LIST
+            String code = infoArray[selectedIndex][0];
+            codesSelected.put(code, codesSelected.getOrDefault(code, 0.0) + 1);
+
+            //Decrease the palettes in the table
+            valuesArrayE[selectedIndex][0] -= 1;
+            //UPDATE THE SELECTED PALETTES
+            selectedPalettes += 1;
+            //UPDATE THE SELECTED WEIGHT
+            selectedWeight += valuesArray[selectedIndex][1];
+            //UPDATE THE WEIGHT PER PALETTE
+            weightPerPaletteLeft = (P_PER_C - selectedWeight) / (N_PER_C - selectedPalettes);
+
+            if(testFinalConstraint(selectedWeight, selectedPalettes)){
+                return 0;
+            }
+        }
+
+        return -1;
+    }
 
 
     private void optimizeAfterFinish2(double selectedPalettes, double selectedWeight){
@@ -284,6 +377,77 @@ public class BipartiteKnapsackSolver {
         int selectedIndex = -1;
 
         if(selectedWeight / selectedPalettes < pMoyenPalette){
+            selectedIndex = findClosestObjectAbove(valuesArrayE, weightPerPaletteLeft);
+        }else{
+            selectedIndex = findClosestObjectUnder(valuesArrayE, weightPerPaletteLeft);
+        }
+
+
+        if(selectedIndex == -1){
+            return;
+        }
+
+        selectedPalettesAfter += 1;
+        selectedWeightAfter += valuesArrayE[selectedIndex][1];
+
+        while(selectedWeightAfter <= pMoyenCamion * C1 && selectedPalettesAfter <= nMoyenCamion * C1 && testFinalConstraint(selectedWeightAfter, selectedPalettesAfter)){
+
+            selectedWeight = selectedWeightAfter;
+            selectedPalettes = selectedPalettesAfter;
+
+            String code = infoArray[selectedIndex][0];
+            codesSelected.put(code, codesSelected.getOrDefault(code, 0.0) + 1);
+
+            valuesArrayE[selectedIndex][0] -= 1;
+
+            weightPerPaletteLeft = (pMoyenCamion * C2 - selectedWeight) / (nMoyenCamion * C2 - selectedPalettes);
+
+            selectedIndex = findClosestObject(valuesArrayE, weightPerPaletteLeft);
+
+            if(selectedIndex == -1){
+                return;
+            }
+
+            selectedPalettesAfter += 1;
+            selectedWeightAfter += valuesArrayE[selectedIndex][1];
+        }
+
+        if(testFinalConstraint(selectedWeightAfter, selectedPalettesAfter)){
+            return;
+        }else{
+            double heuristicWeightAfter = (selectedWeightAfter - weightPerPaletteLeft) / weightPerPaletteLeft;
+            double heuristicWeight = (selectedWeight - weightPerPaletteLeft) / weightPerPaletteLeft;
+
+            double heuristicPalettesAfter = (selectedPalettesAfter - pMoyenPalette) / pMoyenPalette;
+            double heuristicPalette = (selectedPalettes - pMoyenPalette) / pMoyenPalette;
+
+            if(Math.abs(heuristicWeightAfter) + Math.abs(heuristicPalettesAfter) < Math.abs(heuristicWeight) + Math.abs(heuristicPalette)){
+                selectedPalettes = selectedPalettesAfter;
+                selectedWeight = selectedWeightAfter;
+
+                String code = infoArray[selectedIndex][0];
+                codesSelected.put(code, codesSelected.getOrDefault(code, 0.0) + 1);
+
+                valuesArrayE[selectedIndex][0] -= 1;
+            }
+        }
+    }
+
+    private void optimizeAfterFinish3(double selectedPalettes, double selectedWeight, double threshold){
+        double nMoyenCamion = N / (C1 + C2);
+        double pMoyenCamion = P / (C1 + C2);
+        double pMoyenPalette = pMoyenCamion / nMoyenCamion;
+        double weightPerPaletteLeft = (pMoyenCamion * C2 - selectedWeight) / (nMoyenCamion * C2 - selectedPalettes);
+
+        double selectedPalettesAfter = selectedPalettes;
+        double selectedWeightAfter = selectedWeight;
+
+        int selectedIndex = -1;
+
+        if(Math.min(selectedWeight / selectedPalettes, pMoyenPalette) / Math.max(selectedWeight / selectedPalettes, pMoyenPalette) < threshold){
+            selectedIndex = findClosestObject(valuesArrayE, weightPerPaletteLeft);
+        }
+        else if(selectedWeight / selectedPalettes < pMoyenPalette){
             selectedIndex = findClosestObjectAbove(valuesArrayE, weightPerPaletteLeft);
         }else{
             selectedIndex = findClosestObjectUnder(valuesArrayE, weightPerPaletteLeft);
@@ -427,6 +591,21 @@ public class BipartiteKnapsackSolver {
     public boolean useApproach2(){
         isFeasible = launchApproach2() == 0;
         System.out.println("Result Approach 2:");
+
+        if(isFeasible){
+            processSolutionEntries();
+
+            printSolution();
+
+            analyzeSolution();
+        }
+
+        return isFeasible;
+    }
+
+    public boolean useApproach3(double threshold){
+        isFeasible = launchApproach3(threshold) == 0;
+        System.out.println("Result Approach 3:");
 
         if(isFeasible){
             processSolutionEntries();

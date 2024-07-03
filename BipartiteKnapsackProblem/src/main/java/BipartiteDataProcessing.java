@@ -119,7 +119,6 @@ public class BipartiteDataProcessing {
 
     }
 
-
     public record ParsedInput(String[] objectCodes, int[][] objectDescriptions){}
     public record ResultBundle(String[][] infoArray, double[][] valuesArray, double P, double N){}
 }
