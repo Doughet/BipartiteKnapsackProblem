@@ -5,15 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8a765cbc-ad33-4695-819a-88255a908980" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/TruckAnticipationWriter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/TruckOptimizationSolver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/TruckOptimizationWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/BipartiteDataProcessing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BipartiteDataProcessing.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/BipartiteKnapsackSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BipartiteKnapsackSolver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BipartiteDataProcessing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TruckAnticipationDP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BipartiteKnapsackSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TruckAnticipationSolver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BipartiteKnapsackWriter.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BipartiteDataProcessing$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BipartiteDataProcessing$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BipartiteDataProcessing$ParsedInput.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BipartiteDataProcessing$ParsedInput.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BipartiteDataProcessing$ResultBundle.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BipartiteDataProcessing$ResultBundle.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BipartiteDataProcessing.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BipartiteDataProcessing.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BipartiteKnapsackSolver.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BipartiteKnapsackSolver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BipartiteDataProcessing$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BipartiteDataProcessing$ParsedInput.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BipartiteDataProcessing$ResultBundle.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BipartiteDataProcessing.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BipartiteKnapsackSolver$SolutionEntry.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BipartiteKnapsackSolver.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BipartiteKnapsackWriter.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/workbook.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/workbook.xlsx" afterDir="false" />
     </list>
@@ -44,6 +50,10 @@
     &quot;accountId&quot;: &quot;0898093c-61b0-4153-8784-2c36cc57701a&quot;
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/.jdks/openjdk-18.0.1.1/lib/src.zip!/java.base/java/io/FileOutputStream.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.jdks/openjdk-18.0.1.1/lib/src.zip!/java.base/java/util/stream/Stream.java" root0="SKIP_INSPECTION" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -70,6 +80,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
@@ -94,48 +109,89 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Main.java</url>
-          <line>44</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/BipartiteKnapsackSolver.java</url>
-          <line>142</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/BipartiteKnapsackSolver.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/TruckAnticipationSolver.java</url>
           <line>430</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/BipartiteKnapsackSolver.java</url>
-          <line>378</line>
-          <option name="timeStamp" value="11" />
+          <url>file://$PROJECT_DIR$/src/main/java/TruckAnticipationWriter.java</url>
+          <line>70</line>
+          <option name="timeStamp" value="33" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/BipartiteKnapsackSolver.java</url>
-          <line>762</line>
-          <option name="timeStamp" value="16" />
+          <url>file://$PROJECT_DIR$/src/main/java/TruckAnticipationWriter.java</url>
+          <line>49</line>
+          <option name="timeStamp" value="35" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/BipartiteKnapsackSolver.java</url>
-          <line>232</line>
-          <option name="timeStamp" value="18" />
+          <url>file://$PROJECT_DIR$/src/main/java/TruckAnticipationWriter.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/BipartiteKnapsackSolver.java</url>
-          <line>234</line>
-          <option name="timeStamp" value="19" />
+          <url>file://$PROJECT_DIR$/src/main/java/TruckAnticipationWriter.java</url>
+          <line>52</line>
+          <option name="timeStamp" value="39" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/BipartiteKnapsackSolver.java</url>
-          <line>225</line>
-          <option name="timeStamp" value="20" />
+          <url>file://$PROJECT_DIR$/src/main/java/TruckAnticipationWriter.java</url>
+          <line>55</line>
+          <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/TruckOptimizationSolver.java</url>
+          <line>597</line>
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/TruckOptimizationSolver.java</url>
+          <line>151</line>
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/TruckOptimizationSolver.java</url>
+          <line>183</line>
+          <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/TruckAnticipationDP.java</url>
+          <line>41</line>
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/TruckAnticipationDP.java</url>
+          <line>42</line>
+          <option name="timeStamp" value="51" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/TruckAnticipationDP.java</url>
+          <line>44</line>
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/TruckAnticipationDP.java</url>
+          <line>73</line>
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Main.java</url>
+          <line>84</line>
+          <option name="timeStamp" value="56" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

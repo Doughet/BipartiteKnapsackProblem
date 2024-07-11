@@ -3,90 +3,103 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
 
-        BipartiteDataProcessing bpDP = new BipartiteDataProcessing();
+        TruckAnticipationDP bpDP = new TruckAnticipationDP("inputs/Algoritmo.xlsx", "Avance de camion");
 
         bpDP.readExcelFile();
         bpDP.reprocessData();
-        BipartiteDataProcessing.ResultBundle resultBundle = bpDP.getResultBundle();
+        TruckAnticipationDP.ResultBundle resultBundle = bpDP.getResultBundle();
 
 
         double P = resultBundle.P();
         double N = resultBundle.N();
 
+        int C1 = 2;
+        int C2 = 5;
 
-        /*
-        double[][] valuesArray = new double[5][2];
-        valuesArray[0][0] = 300;
-        valuesArray[0][1] = 6;
-        valuesArray[1][0] = 250;
-        valuesArray[1][1] = 8;
-        valuesArray[2][0] = 150;
-        valuesArray[2][1] = 15;
-        valuesArray[3][0] = 200;
-        valuesArray[3][1] = 9;
-        valuesArray[4][0] = 100;
-        valuesArray[4][1] = 12.5f;
-
-        String[][] infoArray = new String[5][2];
-        infoArray[0][0] = "p1";
-        infoArray[0][1] = "";
-        infoArray[1][0] = "p2";
-        infoArray[1][1] = "";
-        infoArray[2][0] = "p3";
-        infoArray[2][1] = "";
-        infoArray[3][0] = "p4";
-        infoArray[3][1] = "";
-        infoArray[4][0] = "p5";
-        infoArray[4][1] = "";
-        */
-
-
-
-        BipartiteKnapsackSolver solver1 = new BipartiteKnapsackSolver(
+        TruckAnticipationSolver solver1 = new TruckAnticipationSolver(
                 P,
                 N,
                 20500,
                 64,
-                2,
-                5,
+                C1,
+                C2,
                 resultBundle.infoArray(),
                 resultBundle.valuesArray()
         );
 
-        BipartiteKnapsackSolver solver2 = new BipartiteKnapsackSolver(
+        TruckAnticipationSolver solver2 = new TruckAnticipationSolver(
                 P,
                 N,
                 20500,
                 64,
-                1,
-                6,
+                C1,
+                C2,
                 resultBundle.infoArray(),
                 resultBundle.valuesArray()
         );
 
-        BipartiteKnapsackSolver solver3 = new BipartiteKnapsackSolver(
+        TruckAnticipationSolver solver3 = new TruckAnticipationSolver(
                 P,
                 N,
                 20500,
                 64,
-                1,
-                6,
+                C1,
+                C2,
                 resultBundle.infoArray(),
                 resultBundle.valuesArray()
         );
 
-        solver1.useApproach1();
-        solver2.useApproach2();
-        solver3.useApproach3(0.2);
+        //solver1.useApproach1();
+        //solver2.useApproach2();
+        //solver3.useApproach3(0.2);
 
-        List<BipartiteKnapsackSolver.SolutionEntry> solution1 = solver1.getSolution();
-        List<BipartiteKnapsackSolver.SolutionEntry> solution2 = solver2.getSolution();
-        List<BipartiteKnapsackSolver.SolutionEntry> solution3 = solver3.getSolution();
+        List<TruckAnticipationSolver.SolutionEntry> solution1 = solver1.getSolution();
+        List<TruckAnticipationSolver.SolutionEntry> solution2 = solver2.getSolution();
+        List<TruckAnticipationSolver.SolutionEntry> solution3 = solver3.getSolution();
 
-        BipartiteKnapsackWriter writer1 = new BipartiteKnapsackWriter(solution1);
-        BipartiteKnapsackWriter writer2 = new BipartiteKnapsackWriter(solution2);
+        TruckAnticipationWriter writer1 = new TruckAnticipationWriter(solution1, resultBundle.infoArray(), resultBundle.valuesArray(), N, P, C1, C2);
+        TruckAnticipationWriter writer2 = new TruckAnticipationWriter(solution2, resultBundle.infoArray(), resultBundle.valuesArray(), N, P, C1, C2);
 
-        writer2.writeExcel();
+        //writer2.writeExcelSolution();
+
+        System.out.println(N);
+        System.out.println(P);
+
+
+
+        TruckAnticipationDP salumisDp = new TruckAnticipationDP("inputs/Algoritmo.xlsx", "Optimisation salumi");
+
+        salumisDp.readExcelFile();
+        salumisDp.reprocessData();
+        TruckAnticipationDP.ResultBundle resultSalumis = salumisDp.getResultBundle();
+
+
+        double PS = resultSalumis.P();
+        double NS = resultSalumis.N();
+
+        int C2S = 3;
+
+        double PSalumis = 5000;
+        double NSalumis = 19;
+
+        TruckOptimizationSolver salumiSolver1 = new TruckOptimizationSolver(
+                PS + PSalumis,
+                NS + NSalumis,
+                20500,
+                64,
+                C2S,
+                PSalumis,
+                NSalumis,
+                resultSalumis.infoArray(),
+                resultSalumis.valuesArray()
+        );
+
+        salumiSolver1.useApproach1();
+
+        List<TruckOptimizationSolver.SolutionEntry> solution1S = salumiSolver1.getSolution();
+        TruckOptimizationWriter writer1S = new TruckOptimizationWriter(solution1S, resultSalumis.infoArray(), resultSalumis.valuesArray(), NS + NSalumis, PS + PSalumis, 1, C2S);
+
+        writer1S.writeExcelSolution();
     }
 
 

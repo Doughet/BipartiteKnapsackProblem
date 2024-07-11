@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class BipartiteKnapsackSolver {
+public class TruckAnticipationSolver {
 
     //Total Weight
     private double P;
@@ -47,7 +47,7 @@ public class BipartiteKnapsackSolver {
 
     private boolean isFeasible = false;
 
-    public BipartiteKnapsackSolver(double p, double n, double p_PER_C, double n_PER_C,
+    public TruckAnticipationSolver(double p, double n, double p_PER_C, double n_PER_C,
                                    int c1, int c2,
                                    String[][] infoArray, double[][] valuesArray) {
         P = p;
@@ -632,7 +632,7 @@ public class BipartiteKnapsackSolver {
         int indexSelected = -1;
 
         for (int i = 0; i < valuesArrayE.length; i++) {
-            if(valuesArrayE[i][0] < 1){
+            if(valuesArrayE[i][0] < 1 || valuesArrayE[i][3] != 1){
                 continue;
             }
 
@@ -656,7 +656,7 @@ public class BipartiteKnapsackSolver {
         int indexSelected = -1;
 
         for (int i = 0; i < valuesArrayE.length; i++) {
-            if(valuesArrayE[i][0] < 1 || valuesArrayE[i][1] > weightPerPalette){
+            if(valuesArrayE[i][0] < 1 || valuesArrayE[i][1] > weightPerPalette || valuesArrayE[i][3] != 1){
                 continue;
             }
 
@@ -680,7 +680,7 @@ public class BipartiteKnapsackSolver {
         int indexSelected = -1;
 
         for (int i = 0; i < valuesArrayE.length; i++) {
-            if(valuesArrayE[i][0] < 1 || valuesArrayE[i][1] < weightPerPalette){
+            if(valuesArrayE[i][0] < 1 || valuesArrayE[i][1] < weightPerPalette || valuesArrayE[i][3] != 1){
                 continue;
             }
 
@@ -703,7 +703,7 @@ public class BipartiteKnapsackSolver {
     private void processSolutionEntries(){
         for (int i = 0; i < infoArray.length; i++) {
             if(codesSelected.containsKey(infoArray[i][0])){
-                solutionEntries.add(new SolutionEntry(infoArray[i][0], infoArray[i][1], codesSelected.get(infoArray[i][0])));
+                solutionEntries.add(new SolutionEntry(infoArray[i][0], infoArray[i][1], codesSelected.get(infoArray[i][0]), valuesArray[i]));
             }
         }
     }
@@ -764,5 +764,5 @@ public class BipartiteKnapsackSolver {
     }
 
 
-    public record SolutionEntry(String code, String description, double amount){}
+    public record SolutionEntry(String code, String description, double amount, double[] values){}
 }

@@ -1,5 +1,3 @@
-import java.util.*;
-
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -8,7 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 
-public class BipartiteDataProcessing {
+public class TruckAnticipationDP {
 
     String filePath;
     String sheetName;
@@ -18,29 +16,39 @@ public class BipartiteDataProcessing {
     double P;
     double N;
 
+    public TruckAnticipationDP(String filePath, String sheetName){
+        this.filePath = filePath;
+        this.sheetName = sheetName;
+    }
+
 
     public void readExcelFile(){
-        String excelFilePath = "C:/Users/adria/Downloads/Cartel2.xlsx"; // Update this path
+        String excelFilePath = filePath; // Update this path
 
         try (FileInputStream fis = new FileInputStream(new File(excelFilePath));
              Workbook workbook = new XSSFWorkbook(fis)) {
 
             // Get the first sheet from the workbook
-            Sheet sheet = workbook.getSheet("Feuil2");
+            Sheet sheet = workbook.getSheet(sheetName);
 
             int rowNumber = sheet.getLastRowNum();
 
             infoArray = new String[rowNumber][2];
-            valuesArray = new double[rowNumber][2];
+            valuesArray = new double[rowNumber][4];
 
             P = 0;
             N = 0;
 
             iterateAColumnInfo(0, sheet, 0);
             iterateAColumnInfo(1, sheet, 1);
-            iterateAColumnValue(3, sheet, 0);
-            iterateAColumnValue(7, sheet, 1);
-
+            //Nombre de palettes
+            iterateAColumnValue(4, sheet, 0);
+            //Poids par palette
+            iterateAColumnValue(6, sheet, 1);
+            //Cartons par palette
+            iterateAColumnValue(3, sheet, 2);
+            //Accessibilité
+            iterateAColumnValue(7, sheet, 3);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -49,10 +57,7 @@ public class BipartiteDataProcessing {
     void reprocessData(){
         for (int i = 0; i < valuesArray.length; i++) {
             N += valuesArray[i][0];
-            P += valuesArray[i][1];
-
-            valuesArray[i][1] = valuesArray[i][1] / valuesArray[i][0];
-
+            P += valuesArray[i][1] * valuesArray[i][0];
         }
     }
 
@@ -64,6 +69,10 @@ public class BipartiteDataProcessing {
 
         for (int i = 1; i < sheet.getLastRowNum(); i++) {
             Row row  = sheet.getRow(i);
+
+            if(row == null){
+                break;
+            }
             Cell cell = row.getCell(column);
             if (cell != null) {
                 switch (cell.getCellType()) {
@@ -94,6 +103,11 @@ public class BipartiteDataProcessing {
 
         for (int i = 1; i < sheet.getLastRowNum(); i++) {
             Row row  = sheet.getRow(i);
+
+            if(row == null){
+                break;
+            }
+
             Cell cell = row.getCell(column);
             if (cell != null) {
                 switch (cell.getCellType()) {
@@ -108,6 +122,7 @@ public class BipartiteDataProcessing {
                     case BOOLEAN:
                         break;
                     case FORMULA:
+                        valuesArray[i-1][index] = cell.getNumericCellValue();
                         break;
                     case BLANK:
                         break;
