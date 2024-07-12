@@ -18,10 +18,12 @@ public class TruckOptimizationWriter {
     private double N;
     private double P;
 
-    private int C1;
     private int C2;
 
-    public TruckOptimizationWriter(List<TruckOptimizationSolver.SolutionEntry> solutionEntries, String[][] infoArray, double[][] valuesArray, double N, double P, int C1, int C2){
+    private double NSalumis;
+    private double PSalumis;
+
+    public TruckOptimizationWriter(List<TruckOptimizationSolver.SolutionEntry> solutionEntries, String[][] infoArray, double[][] valuesArray, double N, double P, int C2, double NSalumis, double PSalumis){
         this.solutionEntries = solutionEntries;
 
         this.infoArray = new String[infoArray.length][infoArray[0].length];
@@ -35,8 +37,10 @@ public class TruckOptimizationWriter {
         this.N = N;
         this.P = P;
 
-        this.C1 = C1;
         this.C2 = C2;
+
+        this.NSalumis = NSalumis;
+        this.PSalumis = PSalumis;
     }
 
 
@@ -53,7 +57,7 @@ public class TruckOptimizationWriter {
         WriteRemainingTrucks(workbook);
 
         // Write the output to a file
-        try (FileOutputStream fileOut = new FileOutputStream("workbook.xlsx")) {
+        try (FileOutputStream fileOut = new FileOutputStream("truck_optimization.xlsx")) {
             workbook.write(fileOut);
         } catch (IOException e) {
             e.printStackTrace();
@@ -68,11 +72,11 @@ public class TruckOptimizationWriter {
     }
 
     private void WriteAdvancedTrucks(Workbook workbook) {
-        double PAdvance = 0;
-        double NAdvance = 0;
+        double PAdvance = PSalumis;
+        double NAdvance = NSalumis;
 
         // Create a Sheet
-        Sheet sheet = workbook.createSheet("Advanced Trucks");
+        Sheet sheet = workbook.createSheet("Salumis Truck");
 
         // Create a Row
         Row headerRow = sheet.createRow(0);
@@ -133,7 +137,7 @@ public class TruckOptimizationWriter {
             Cell cell_7 = row.createCell(7);
             cell_7.setCellValue(rowData.values()[3]);
         }
-        WriteInsights(sheet, rowNum, NAdvance, PAdvance, C1);
+        WriteInsights(sheet, rowNum, NAdvance, PAdvance, 1);
     }
 
     private void WriteRemainingTrucks(Workbook workbook) {
@@ -237,10 +241,10 @@ public class TruckOptimizationWriter {
         cellTheoTitle.setCellValue("Ideal per truck:");
 
         Cell cellTheoN = theoreticalRow.createCell(4);
-        cellTheoN.setCellValue(N/(C1 + C2));
+        cellTheoN.setCellValue(N/(1 + C2));
 
         Cell cellTheoP = theoreticalRow.createCell(5);
-        cellTheoP.setCellValue(P/(C1 + C2));
+        cellTheoP.setCellValue(P/(1 + C2));
 
         Row realRow = sheet.createRow(++rowNum);
 
@@ -259,10 +263,12 @@ public class TruckOptimizationWriter {
         cellPercentsTitle.setCellValue("Closeness Percentage:");
 
         Cell cellPercentsN = percentsRow.createCell(4);
-        cellPercentsN.setCellValue((NAdvance / C) / (N / (C1 + C2)) * 100);
+        double percentageN = Math.min((NAdvance / C), (N / (1 + C2))) / Math.max((NAdvance / C), (N / (1 + C2))) * 100;
+        cellPercentsN.setCellValue(percentageN);
 
         Cell cellPercentsP = percentsRow.createCell(5);
-        cellPercentsP.setCellValue((PAdvance / C) / (P / (C1 + C2)) * 100);
+        double percentageP = Math.min((PAdvance / C), (P / (1 + C2))) / Math.max((PAdvance / C), (P / (1 + C2))) * 100;
+        cellPercentsP.setCellValue(percentageP);
     }
 
 

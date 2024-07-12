@@ -50,7 +50,7 @@ public class TruckAnticipationWriter {
         WriteRemainingTrucks(workbook);
 
         // Write the output to a file
-        try (FileOutputStream fileOut = new FileOutputStream("workbook.xlsx")) {
+        try (FileOutputStream fileOut = new FileOutputStream("truck_anticipation.xlsx")) {
             workbook.write(fileOut);
         } catch (IOException e) {
             e.printStackTrace();
@@ -256,10 +256,12 @@ public class TruckAnticipationWriter {
         cellPercentsTitle.setCellValue("Closeness Percentage:");
 
         Cell cellPercentsN = percentsRow.createCell(4);
-        cellPercentsN.setCellValue((NAdvance / C) / (N / (C1 + C2)) * 100);
+        double percentageN = Math.min((NAdvance / C), (N / (C1 + C2))) / Math.max((NAdvance / C), (N / (C1 + C2))) * 100;
+        cellPercentsN.setCellValue(percentageN);
 
         Cell cellPercentsP = percentsRow.createCell(5);
-        cellPercentsP.setCellValue((PAdvance / C) / (P / (C1 + C2)) * 100);
+        double percentageP = Math.min((PAdvance / C), (P / (C1 + C2))) / Math.max((PAdvance / C), (P / (C1 + C2))) * 100;
+        cellPercentsP.setCellValue(percentageP);
     }
 
 
