@@ -13,17 +13,17 @@ public class Main {
         );
 
         TruckOptimizationBlock truckOptimizationBlock = new TruckOptimizationBlock(
-                "inputs/Algoritmo.xlsx",
-                "Optimisation salumi",
-                5000,
-                19,
+                "inputs/Algoritmo 2.xlsx",
+                "Feuil2",
+                7634,
+                23,
                 2,
                 20500,
-                65
+                64
         );
 
         //EXECUTION
-        truckAnticipationBlock.startAnticipation();
-        truckOptimizationBlock.startOtpimisation();
+        truckAnticipationBlock.startAnticipation(0.0, 0.0);
+        //truckOptimizationBlock.startOtpimisation(0.0, 0.0);
     }
 }

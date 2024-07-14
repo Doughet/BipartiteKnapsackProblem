@@ -30,7 +30,7 @@ public class TruckOptimizationBlock {
         this.n_per_c = n_per_c;
     }
 
-    public void startOtpimisation() {
+    public void startOtpimisation(double NModifier, double PModifier) {
         TruckAnticipationDP bpDP = new TruckAnticipationDP(filePath, sheetName);
 
         bpDP.readExcelFile();
@@ -43,8 +43,8 @@ public class TruckOptimizationBlock {
         TruckOptimizationSolver solver1 = new TruckOptimizationSolver(
                 P,
                 N,
-                p_per_c,
-                n_per_c,
+                p_per_c + PModifier,
+                n_per_c + NModifier,
                 C2,
                 PSalumis,
                 NSalumis,
@@ -55,8 +55,8 @@ public class TruckOptimizationBlock {
         TruckOptimizationSolver solver2 = new TruckOptimizationSolver(
                 P,
                 N,
-                p_per_c,
-                n_per_c,
+                p_per_c + PModifier,
+                n_per_c + NModifier,
                 C2,
                 PSalumis,
                 NSalumis,
@@ -67,8 +67,8 @@ public class TruckOptimizationBlock {
         TruckOptimizationSolver solver3 = new TruckOptimizationSolver(
                 P,
                 N,
-                p_per_c,
-                n_per_c,
+                p_per_c + PModifier,
+                n_per_c + NModifier,
                 C2,
                 PSalumis,
                 NSalumis,
@@ -76,19 +76,51 @@ public class TruckOptimizationBlock {
                 resultBundle.valuesArray()
         );
 
-        solver1.useApproach1();
-        solver2.useApproach2();
-        solver3.useApproach3(0.2);
+        TruckOptimizationSolver.SolutionStats stats1 = solver1.useApproach1();
+        TruckOptimizationSolver.SolutionStats stats2 = solver2.useApproach2();
+        TruckOptimizationSolver.SolutionStats stats3 = solver3.useApproach3(0.2);
 
-        List<TruckOptimizationSolver.SolutionEntry> solution1 = solver1.getSolution();
-        List<TruckOptimizationSolver.SolutionEntry> solution2 = solver2.getSolution();
-        List<TruckOptimizationSolver.SolutionEntry> solution3 = solver3.getSolution();
+        if(stats1.result() == -1 && stats2.result() == -1 && stats3.result() == -1 && stats2.NperC() - (n_per_c + NModifier) > 0){
+            startOtpimisation(NModifier + 0.1, PModifier);
+            return;
+        } else if (stats1.result() == -1 && stats2.result() == -1 && stats3.result() == -1 && stats2.PperC() - (p_per_c + PModifier) > 0) {
+            startOtpimisation(NModifier, PModifier + 5);
+            return;
+        }
 
-        TruckOptimizationWriter writer1 = new TruckOptimizationWriter(solution1, resultBundle.infoArray(), resultBundle.valuesArray(), N, P, C2, NSalumis, PSalumis);
-        TruckOptimizationWriter writer2 = new TruckOptimizationWriter(solution2, resultBundle.infoArray(), resultBundle.valuesArray(), N, P, C2, NSalumis, PSalumis);
-        TruckOptimizationWriter writer3 = new TruckOptimizationWriter(solution3, resultBundle.infoArray(), resultBundle.valuesArray(), N, P, C2, NSalumis, PSalumis);
+        TruckOptimizationSolver.SolutionStats [] stats = {stats1, stats2, stats3};
+        TruckOptimizationSolver [] solvers = {solver1, solver2, solver3};
+        TruckOptimizationSolver selectedSolver = selectSolution(stats, solvers);
 
-        writer2.writeExcelSolution();
+        List<TruckOptimizationSolver.SolutionEntry> solution = selectedSolver.getSolution();
+
+        TruckOptimizationWriter writer = new TruckOptimizationWriter(solution, resultBundle.infoArray(), resultBundle.valuesArray(), N, P, C2, NSalumis, PSalumis);
+
+        writer.writeExcelSolution();
+    }
+
+    private TruckOptimizationSolver selectSolution(TruckOptimizationSolver.SolutionStats [] stats, TruckOptimizationSolver [] solvers){
+        int selected = 0;
+        double best = computeHeuristic(stats[0].NperC(), stats[0].PperC(), stats[0].PtheoC(), stats[0].NtheoC());
+        for (int i = 0; i < stats.length; i++) {
+            double candidate = computeHeuristic(stats[0].NperC(), stats[0].PperC(), stats[0].PtheoC(), stats[0].NtheoC());
+
+            if(candidate <= best){
+                best = candidate;
+                selected = i;
+            }
+        }
+
+        return solvers[selected];
+    }
+
+    private double computeHeuristic(double nMoyenPalette, double selectedWeight,
+                                     double pMoyenCamion, double selectedPalettes){
+        double heuristicWeight = (selectedWeight - pMoyenCamion) / pMoyenCamion;
+
+        double heuristicPalette = (selectedPalettes - pMoyenCamion) / pMoyenCamion;
+
+        return Math.abs(heuristicWeight) + Math.abs(heuristicPalette);
     }
 
 }

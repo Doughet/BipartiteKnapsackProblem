@@ -26,7 +26,7 @@ public class TruckAnticipationBlock {
         this.n_per_c = n_per_c;
     }
 
-    public void startAnticipation(){
+    public void startAnticipation(double NModifier, double PModifier){
         TruckAnticipationDP bpDP = new TruckAnticipationDP(filePath, sheetName);
 
         bpDP.readExcelFile();
@@ -39,8 +39,8 @@ public class TruckAnticipationBlock {
         TruckAnticipationSolver solver1 = new TruckAnticipationSolver(
                 P,
                 N,
-                p_per_c,
-                n_per_c,
+                p_per_c + PModifier,
+                n_per_c + NModifier,
                 C1,
                 C2,
                 resultBundle.infoArray(),
@@ -50,8 +50,8 @@ public class TruckAnticipationBlock {
         TruckAnticipationSolver solver2 = new TruckAnticipationSolver(
                 P,
                 N,
-                p_per_c,
-                n_per_c,
+                p_per_c + PModifier,
+                n_per_c + NModifier,
                 C1,
                 C2,
                 resultBundle.infoArray(),
@@ -61,27 +61,60 @@ public class TruckAnticipationBlock {
         TruckAnticipationSolver solver3 = new TruckAnticipationSolver(
                 P,
                 N,
-                p_per_c,
-                n_per_c,
+                p_per_c + PModifier,
+                n_per_c + NModifier,
                 C1,
                 C2,
                 resultBundle.infoArray(),
                 resultBundle.valuesArray()
         );
 
-        solver1.useApproach1();
-        solver2.useApproach2();
-        solver3.useApproach3(0.2);
+        TruckAnticipationSolver.SolutionStats stats1 = solver1.useApproach1();
+        TruckAnticipationSolver.SolutionStats stats2 = solver2.useApproach2();
+        TruckAnticipationSolver.SolutionStats stats3 = solver3.useApproach3(0.2);
 
-        List<TruckAnticipationSolver.SolutionEntry> solution1 = solver1.getSolution();
-        List<TruckAnticipationSolver.SolutionEntry> solution2 = solver2.getSolution();
-        List<TruckAnticipationSolver.SolutionEntry> solution3 = solver3.getSolution();
+        /*
+        if(stats1.result() == -1 && stats2.result() == -1 && stats3.result() == -1 && stats2.NperC() - (n_per_c + NModifier) > 0){
+            startAnticipation(NModifier + 0.1, PModifier);
+            return;
+        } else if (stats1.result() == -1 && stats2.result() == -1 && stats3.result() == -1 && stats2.PperC() - (p_per_c + PModifier) > 0) {
+            startAnticipation(NModifier, PModifier + 5);
+            return;
+        }*/
 
-        TruckAnticipationWriter writer1 = new TruckAnticipationWriter(solution1, resultBundle.infoArray(), resultBundle.valuesArray(), N, P, C1, C2);
-        TruckAnticipationWriter writer2 = new TruckAnticipationWriter(solution2, resultBundle.infoArray(), resultBundle.valuesArray(), N, P, C1, C2);
-        TruckAnticipationWriter writer3 = new TruckAnticipationWriter(solution3, resultBundle.infoArray(), resultBundle.valuesArray(), N, P, C1, C2);
+        TruckAnticipationSolver.SolutionStats [] stats = {stats1, stats2, stats3};
+        TruckAnticipationSolver [] solvers = {solver1, solver2, solver3};
+        TruckAnticipationSolver selectedSolver = selectSolution(stats, solvers);
 
-        writer2.writeExcelSolution();
+        List<TruckAnticipationSolver.SolutionEntry> solution = selectedSolver.getSolution();
+
+        TruckAnticipationWriter writer = new TruckAnticipationWriter(solution, resultBundle.infoArray(), resultBundle.valuesArray(), N, P, C1, C2);
+
+        writer.writeExcelSolution();
     }
 
+    private TruckAnticipationSolver selectSolution(TruckAnticipationSolver.SolutionStats [] stats, TruckAnticipationSolver [] solvers){
+        int selected = 0;
+        double best = computeHeuristic(stats[0].NperC(), stats[0].PperC(), stats[0].PtheoC(), stats[0].NtheoC());
+        for (int i = 0; i < stats.length; i++) {
+            double candidate = computeHeuristic(stats[0].NperC(), stats[0].PperC(), stats[0].PtheoC(), stats[0].NtheoC());
+
+            if(candidate <= best){
+                best = candidate;
+                selected = i;
+            }
+        }
+
+        return solvers[selected];
+    }
+
+
+    private double computeHeuristic(double nMoyenPalette, double selectedWeight,
+                                    double pMoyenCamion, double selectedPalettes){
+        double heuristicWeight = (selectedWeight - pMoyenCamion) / pMoyenCamion;
+
+        double heuristicPalette = (selectedPalettes - pMoyenCamion) / pMoyenCamion;
+
+        return Math.abs(heuristicWeight) + Math.abs(heuristicPalette);
+    }
 }

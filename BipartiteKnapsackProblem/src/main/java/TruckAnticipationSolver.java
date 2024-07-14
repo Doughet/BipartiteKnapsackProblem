@@ -100,7 +100,7 @@ public class TruckAnticipationSolver {
      * It fills in the list of codes selected.
      * @return It returns -1 if no solution was found. It returns 0 if a solution was found.
      */
-    private int launchApproach1(){
+    private SolutionStats launchApproach1(){
         double selectedPalettes = 0;
         double selectedWeight = 0;
 
@@ -142,7 +142,7 @@ public class TruckAnticipationSolver {
 
             optimizeAfterFinish(selectedPalettes, selectedWeight);
 
-            return 0;
+            return new SolutionStats(0, P, N, selectedWeight / C1, selectedPalettes / C1, pMoyenCamion, nMoyenCamion);
         }
 
         while(testUnderMax(selectedWeight, selectedPalettes)){
@@ -171,15 +171,15 @@ public class TruckAnticipationSolver {
             weightPerPaletteLeft = (P_PER_C - selectedWeight) / (N_PER_C - selectedPalettes);
 
             if(testFinalConstraint(selectedWeight, selectedPalettes)){
-                return 0;
+                return new SolutionStats(0, P, N, selectedWeight / C1, selectedPalettes / C1, pMoyenCamion, nMoyenCamion);
             }
         }
 
-        return -1;
+        return new SolutionStats(-1, P, N, selectedWeight / C1, selectedPalettes / C1, pMoyenCamion, nMoyenCamion);
     }
 
 
-    private int launchApproach2(){
+    private SolutionStats launchApproach2(){
         double selectedPalettes = 0;
         double selectedWeight = 0;
 
@@ -234,7 +234,7 @@ public class TruckAnticipationSolver {
 
             optimizeAfterFinish2(selectedPalettes, selectedWeight);
 
-            return 0;
+            return new SolutionStats(0, P, N, selectedWeight / C1, selectedPalettes / C1, pMoyenCamion, nMoyenCamion);
         }
 
         while(testUnderMax(selectedWeight, selectedPalettes)){
@@ -263,14 +263,14 @@ public class TruckAnticipationSolver {
             weightPerPaletteLeft = (P_PER_C - selectedWeight) / (N_PER_C - selectedPalettes);
 
             if(testFinalConstraint(selectedWeight, selectedPalettes)){
-                return 0;
+                return new SolutionStats(0, P, N, selectedWeight / C1, selectedPalettes / C1, pMoyenCamion, nMoyenCamion);
             }
         }
 
-        return -1;
+        return new SolutionStats(-1, P, N, selectedWeight / C1, selectedPalettes / C1, pMoyenCamion, nMoyenCamion);
     }
 
-    private int launchApproach3(double threshold){
+    private SolutionStats launchApproach3(double threshold){
         double selectedPalettes = 0;
         double selectedWeight = 0;
 
@@ -328,7 +328,7 @@ public class TruckAnticipationSolver {
 
             optimizeAfterFinish2(selectedPalettes, selectedWeight);
 
-            return 0;
+            return new SolutionStats(0, P, N, selectedWeight / C1, selectedPalettes / C1, pMoyenCamion, nMoyenCamion);
         }
 
         while(testUnderMax(selectedWeight, selectedPalettes)){
@@ -357,11 +357,11 @@ public class TruckAnticipationSolver {
             weightPerPaletteLeft = (P_PER_C - selectedWeight) / (N_PER_C - selectedPalettes);
 
             if(testFinalConstraint(selectedWeight, selectedPalettes)){
-                return 0;
+                return new SolutionStats(0, P, N, selectedWeight / C1, selectedPalettes / C1, pMoyenCamion, nMoyenCamion);
             }
         }
 
-        return -1;
+        return new SolutionStats(-1, P, N, selectedWeight / C1, selectedPalettes / C1, pMoyenCamion, nMoyenCamion);
     }
 
 
@@ -572,11 +572,12 @@ public class TruckAnticipationSolver {
     }
 
 
-    public boolean useApproach1(){
-        isFeasible = launchApproach1() == 0;
-        System.out.println("Result Approach 1:");
+    public SolutionStats useApproach1(){
+        SolutionStats stats1 = launchApproach1();
+        isFeasible = stats1.result == 0;
 
         if(isFeasible){
+            System.out.println("Result Approach 1:");
             processSolutionEntries();
 
             printSolution();
@@ -584,15 +585,15 @@ public class TruckAnticipationSolver {
             analyzeSolution();
         }
 
-
-        return isFeasible;
+        return stats1;
     }
 
-    public boolean useApproach2(){
-        isFeasible = launchApproach2() == 0;
-        System.out.println("Result Approach 2:");
+    public SolutionStats useApproach2(){
+        SolutionStats stats2 = launchApproach2();
+        isFeasible = stats2.result == 0;
 
         if(isFeasible){
+            System.out.println("Result Approach 2:");
             processSolutionEntries();
 
             printSolution();
@@ -600,14 +601,15 @@ public class TruckAnticipationSolver {
             analyzeSolution();
         }
 
-        return isFeasible;
+        return stats2;
     }
 
-    public boolean useApproach3(double threshold){
-        isFeasible = launchApproach3(threshold) == 0;
-        System.out.println("Result Approach 3:");
+    public SolutionStats useApproach3(double threshold){
+        SolutionStats stats3 = launchApproach3(threshold);
+        isFeasible = stats3.result == 0;
 
         if(isFeasible){
+            System.out.println("Result Approach 3:");
             processSolutionEntries();
 
             printSolution();
@@ -615,7 +617,7 @@ public class TruckAnticipationSolver {
             analyzeSolution();
         }
 
-        return isFeasible;
+        return stats3;
     }
 
     public List<SolutionEntry> getSolution(){
@@ -765,4 +767,5 @@ public class TruckAnticipationSolver {
 
 
     public record SolutionEntry(String code, String description, double amount, double[] values){}
+    public record SolutionStats(int result, double P, double N, double PperC, double NperC, double PtheoC, double NtheoC){}
 }

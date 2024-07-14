@@ -5,16 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8a765cbc-ad33-4695-819a-88255a908980" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/TruckAnticipationBlock.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/TruckOptimizationBlock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputs/Algoritmo 2.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/Algoritmo.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/Algoritmo.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/TruckAnticipationWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TruckAnticipationWriter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/TruckOptimizationWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TruckOptimizationWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TruckAnticipationBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TruckAnticipationBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TruckAnticipationDP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TruckAnticipationDP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TruckAnticipationSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TruckAnticipationSolver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TruckOptimizationBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TruckOptimizationBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TruckOptimizationSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TruckOptimizationSolver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/TruckAnticipationWriter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TruckAnticipationWriter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/TruckOptimizationWriter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TruckOptimizationWriter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workbook.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/TruckAnticipationBlock.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TruckAnticipationBlock.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/TruckAnticipationDP.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TruckAnticipationDP.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/TruckAnticipationSolver$SolutionEntry.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TruckAnticipationSolver$SolutionEntry.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/TruckAnticipationSolver.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TruckAnticipationSolver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/TruckOptimizationBlock.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TruckOptimizationBlock.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/TruckOptimizationSolver$SolutionEntry.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TruckOptimizationSolver$SolutionEntry.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/TruckOptimizationSolver.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TruckOptimizationSolver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/truck_anticipation.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/truck_anticipation.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/truck_optimization.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/truck_optimization.xlsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,6 +83,9 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Data\Adrian\Github\BipartiteKnapsackProblem\BipartiteKnapsackProblem\inputs" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="" />
     </key>

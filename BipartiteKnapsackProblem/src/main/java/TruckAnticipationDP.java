@@ -67,7 +67,7 @@ public class TruckAnticipationDP {
 
     void iterateAColumnInfo(int column, Sheet sheet, int index){
 
-        for (int i = 1; i < sheet.getLastRowNum(); i++) {
+        for (int i = 1; i < sheet.getLastRowNum()+1; i++) {
             Row row  = sheet.getRow(i);
 
             if(row == null){
@@ -101,7 +101,7 @@ public class TruckAnticipationDP {
 
     void iterateAColumnValue(int column, Sheet sheet, int index){
 
-        for (int i = 1; i < sheet.getLastRowNum(); i++) {
+        for (int i = 1; i < sheet.getLastRowNum()+1; i++) {
             Row row  = sheet.getRow(i);
 
             if(row == null){

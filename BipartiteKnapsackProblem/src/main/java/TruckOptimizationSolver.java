@@ -111,7 +111,7 @@ public class TruckOptimizationSolver {
      * It fills in the list of codes selected.
      * @return It returns -1 if no solution was found. It returns 0 if a solution was found.
      */
-    private int launchApproach1(){
+    private SolutionStats launchApproach1(){
         double selectedPalettes = NSalumis;
         double selectedWeight = PSalumis;
 
@@ -153,7 +153,7 @@ public class TruckOptimizationSolver {
 
             optimizeAfterFinish(selectedPalettes, selectedWeight);
 
-            return 0;
+            return new SolutionStats(0, P, N, selectedWeight / C1, selectedPalettes / C1, pMoyenCamion, nMoyenCamion);
         }
 
         while(testUnderMax(selectedWeight, selectedPalettes)){
@@ -182,14 +182,14 @@ public class TruckOptimizationSolver {
             weightPerPaletteLeft = (P_PER_C - selectedWeight) / (N_PER_C - selectedPalettes);
 
             if(testFinalConstraint(selectedWeight, selectedPalettes)){
-                return 0;
+                return new SolutionStats(0, P, N, selectedWeight / C1, selectedPalettes / C1, pMoyenCamion, nMoyenCamion);
             }
         }
 
-        return -1;
+        return new SolutionStats(-1, P, N, selectedWeight / C1, selectedPalettes / C1, pMoyenCamion, nMoyenCamion);
     }
 
-    private int launchApproach2(){
+    private SolutionStats launchApproach2(){
         double selectedPalettes = NSalumis;
         double selectedWeight = PSalumis;
 
@@ -244,7 +244,7 @@ public class TruckOptimizationSolver {
 
             optimizeAfterFinish2(selectedPalettes, selectedWeight);
 
-            return 0;
+            return new SolutionStats(0, P, N, selectedWeight / C1, selectedPalettes / C1, pMoyenCamion, nMoyenCamion);
         }
 
         while(testUnderMax(selectedWeight, selectedPalettes)){
@@ -273,14 +273,14 @@ public class TruckOptimizationSolver {
             weightPerPaletteLeft = (P_PER_C - selectedWeight) / (N_PER_C - selectedPalettes);
 
             if(testFinalConstraint(selectedWeight, selectedPalettes)){
-                return 0;
+                return new SolutionStats(0, P, N, selectedWeight / C1, selectedPalettes / C1, pMoyenCamion, nMoyenCamion);
             }
         }
 
-        return -1;
+        return new SolutionStats(-1, P, N, selectedWeight / C1, selectedPalettes / C1, pMoyenCamion, nMoyenCamion);
     }
 
-    private int launchApproach3(double threshold){
+    private SolutionStats launchApproach3(double threshold){
         double selectedPalettes = NSalumis;
         double selectedWeight = PSalumis;
 
@@ -338,7 +338,7 @@ public class TruckOptimizationSolver {
 
             optimizeAfterFinish2(selectedPalettes, selectedWeight);
 
-            return 0;
+            return new SolutionStats(0, P, N, selectedWeight / C1, selectedPalettes / C1, pMoyenCamion, nMoyenCamion);
         }
 
         while(testUnderMax(selectedWeight, selectedPalettes)){
@@ -367,11 +367,11 @@ public class TruckOptimizationSolver {
             weightPerPaletteLeft = (P_PER_C - selectedWeight) / (N_PER_C - selectedPalettes);
 
             if(testFinalConstraint(selectedWeight, selectedPalettes)){
-                return 0;
+                return new SolutionStats(0, P, N, selectedWeight / C1, selectedPalettes / C1, pMoyenCamion, nMoyenCamion);
             }
         }
 
-        return -1;
+        return new SolutionStats(-1, P, N, selectedWeight / C1, selectedPalettes / C1, pMoyenCamion, nMoyenCamion);
     }
 
 
@@ -425,13 +425,8 @@ public class TruckOptimizationSolver {
         if(testFinalConstraint(selectedWeightAfter, selectedPalettesAfter)){
             return;
         }else{
-            double heuristicWeightAfter = (selectedWeightAfter - weightPerPaletteLeft) / weightPerPaletteLeft;
-            double heuristicWeight = (selectedWeight - weightPerPaletteLeft) / weightPerPaletteLeft;
-
-            double heuristicPalettesAfter = (selectedPalettesAfter - pMoyenPalette) / pMoyenPalette;
-            double heuristicPalette = (selectedPalettes - pMoyenPalette) / pMoyenPalette;
-
-            if(Math.abs(heuristicWeightAfter) + Math.abs(heuristicPalettesAfter) < Math.abs(heuristicWeight) + Math.abs(heuristicPalette)){
+            if(computeHeuristic(selectedWeightAfter, weightPerPaletteLeft, selectedWeight,
+                    selectedPalettesAfter, pMoyenCamion, selectedPalettes)){
                 selectedPalettes = selectedPalettesAfter;
                 selectedWeight = selectedWeightAfter;
 
@@ -496,13 +491,9 @@ public class TruckOptimizationSolver {
         if(testFinalConstraint(selectedWeightAfter, selectedPalettesAfter)){
             return;
         }else{
-            double heuristicWeightAfter = (selectedWeightAfter - weightPerPaletteLeft) / weightPerPaletteLeft;
-            double heuristicWeight = (selectedWeight - weightPerPaletteLeft) / weightPerPaletteLeft;
 
-            double heuristicPalettesAfter = (selectedPalettesAfter - pMoyenPalette) / pMoyenPalette;
-            double heuristicPalette = (selectedPalettes - pMoyenPalette) / pMoyenPalette;
-
-            if(Math.abs(heuristicWeightAfter) + Math.abs(heuristicPalettesAfter) < Math.abs(heuristicWeight) + Math.abs(heuristicPalette)){
+            if(computeHeuristic(selectedWeightAfter, weightPerPaletteLeft, selectedWeight,
+                    selectedPalettesAfter, pMoyenCamion, selectedPalettes)){
                 selectedPalettes = selectedPalettesAfter;
                 selectedWeight = selectedWeightAfter;
 
@@ -555,13 +546,8 @@ public class TruckOptimizationSolver {
         if(testFinalConstraint(selectedWeightAfter, selectedPalettesAfter)){
             return;
         }else{
-            double heuristicWeightAfter = (selectedWeightAfter - weightPerPaletteLeft) / weightPerPaletteLeft;
-            double heuristicWeight = (selectedWeight - weightPerPaletteLeft) / weightPerPaletteLeft;
-
-            double heuristicPalettesAfter = (selectedPalettesAfter - pMoyenPalette) / pMoyenPalette;
-            double heuristicPalette = (selectedPalettes - pMoyenPalette) / pMoyenPalette;
-
-            if(Math.abs(heuristicWeightAfter) + Math.abs(heuristicPalettesAfter) < Math.abs(heuristicWeight) + Math.abs(heuristicPalette)){
+            if(computeHeuristic(selectedWeightAfter, weightPerPaletteLeft, selectedWeight,
+                    selectedPalettesAfter, pMoyenCamion, selectedPalettes)){
                 selectedPalettes = selectedPalettesAfter;
                 selectedWeight = selectedWeightAfter;
 
@@ -581,28 +567,23 @@ public class TruckOptimizationSolver {
         System.out.println("Palettes Amount Accuracy: " + Nr1 / (nMoyenCamion * C1) * 100 + "%");
     }
 
+    private boolean computeHeuristic(double selectedWeightAfter, double weightPerPaletteLeft, double selectedWeight,
+                                     double selectedPalettesAfter, double pMoyenCamion, double selectedPalettes){
+        double heuristicWeightAfter = (selectedWeightAfter - weightPerPaletteLeft) / weightPerPaletteLeft;
+        double heuristicWeight = (selectedWeight - weightPerPaletteLeft) / weightPerPaletteLeft;
 
-    public boolean useApproach1(){
-        isFeasible = launchApproach1() == 0;
-        System.out.println("Result Approach 1:");
+        double heuristicPalettesAfter = (selectedPalettesAfter - pMoyenCamion) / pMoyenCamion;
+        double heuristicPalette = (selectedPalettes - pMoyenCamion) / pMoyenCamion;
 
-        if(isFeasible){
-            processSolutionEntries();
-
-            printSolution();
-
-            analyzeSolution();
-        }
-
-
-        return isFeasible;
+        return Math.abs(heuristicWeightAfter) + Math.abs(heuristicPalettesAfter) < Math.abs(heuristicWeight) + Math.abs(heuristicPalette);
     }
 
-    public boolean useApproach2(){
-        isFeasible = launchApproach2() == 0;
-        System.out.println("Result Approach 2:");
+    public SolutionStats useApproach1(){
+        SolutionStats stats1 = launchApproach1();
+        isFeasible = stats1.result == 0;
 
         if(isFeasible){
+            System.out.println("Result Approach 1:");
             processSolutionEntries();
 
             printSolution();
@@ -610,14 +591,16 @@ public class TruckOptimizationSolver {
             analyzeSolution();
         }
 
-        return isFeasible;
+
+        return stats1;
     }
 
-    public boolean useApproach3(double threshold){
-        isFeasible = launchApproach3(threshold) == 0;
-        System.out.println("Result Approach 3:");
+    public SolutionStats useApproach2(){
+        SolutionStats stats2 = launchApproach2();
+        isFeasible = stats2.result == 0;
 
         if(isFeasible){
+            System.out.println("Result Approach 2:");
             processSolutionEntries();
 
             printSolution();
@@ -625,7 +608,23 @@ public class TruckOptimizationSolver {
             analyzeSolution();
         }
 
-        return isFeasible;
+        return stats2;
+    }
+
+    public SolutionStats useApproach3(double threshold){
+        SolutionStats stats3 = launchApproach3(threshold);
+        isFeasible = stats3.result == 0;
+
+        if(isFeasible){
+            System.out.println("Result Approach 3:");
+            processSolutionEntries();
+
+            printSolution();
+
+            analyzeSolution();
+        }
+
+        return stats3;
     }
 
     public List<TruckOptimizationSolver.SolutionEntry> getSolution(){
@@ -775,4 +774,5 @@ public class TruckOptimizationSolver {
 
 
     public record SolutionEntry(String code, String description, double amount, double[] values){}
+    public record SolutionStats(int result, double P, double N, double PperC, double NperC, double PtheoC, double NtheoC){}
 }
