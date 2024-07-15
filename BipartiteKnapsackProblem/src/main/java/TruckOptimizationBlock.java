@@ -103,7 +103,7 @@ public class TruckOptimizationBlock {
         int selected = 0;
         double best = computeHeuristic(stats[0].NperC(), stats[0].PperC(), stats[0].PtheoC(), stats[0].NtheoC());
         for (int i = 0; i < stats.length; i++) {
-            double candidate = computeHeuristic(stats[0].NperC(), stats[0].PperC(), stats[0].PtheoC(), stats[0].NtheoC());
+            double candidate = computeHeuristic(stats[i].NperC(), stats[i].PperC(), stats[i].PtheoC(), stats[i].NtheoC());
 
             if(candidate <= best){
                 best = candidate;

@@ -5,23 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8a765cbc-ad33-4695-819a-88255a908980" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/inputs/Algoritmo 2.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputs/Algoritmo 3V2.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputs/orders20_07.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inputs/Algoritmo.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/Algoritmo.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/TruckAnticipationBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TruckAnticipationBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/TruckAnticipationDP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TruckAnticipationDP.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/TruckAnticipationSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TruckAnticipationSolver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/TruckOptimizationBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TruckOptimizationBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/TruckOptimizationSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TruckOptimizationSolver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/TruckAnticipationBlock.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TruckAnticipationBlock.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/TruckAnticipationDP.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TruckAnticipationDP.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/TruckAnticipationSolver$SolutionEntry.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TruckAnticipationSolver$SolutionEntry.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/TruckAnticipationSolver.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TruckAnticipationSolver.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/TruckOptimizationBlock.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TruckOptimizationBlock.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/TruckOptimizationSolver$SolutionEntry.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TruckOptimizationSolver$SolutionEntry.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/TruckOptimizationSolver.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TruckOptimizationSolver.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/truck_anticipation.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/truck_anticipation.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/truck_optimization.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/truck_optimization.xlsx" afterDir="false" />
     </list>
@@ -73,7 +66,11 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Data/Adrian/Github/BipartiteKnapsackProblem/BipartiteKnapsackProblem&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/adrianvalica/Documents/GitHub/BipartiteKnapsackProblem/BipartiteKnapsackProblem/inputs&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
@@ -83,7 +80,11 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/inputs" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/inputs" />
       <recent name="D:\Data\Adrian\Github\BipartiteKnapsackProblem\BipartiteKnapsackProblem\inputs" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -99,6 +100,14 @@
       </method>
     </configuration>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -108,6 +117,14 @@
       <option name="presentableId" value="Default" />
       <updated>1715261216308</updated>
       <workItem from="1715289940677" duration="77000" />
+      <workItem from="1720960828986" duration="90000" />
+      <workItem from="1720960939914" duration="84000" />
+      <workItem from="1720961967217" duration="11000" />
+      <workItem from="1720962678178" duration="1215000" />
+      <workItem from="1720978224897" duration="5338000" />
+      <workItem from="1721050634170" duration="2288000" />
+      <workItem from="1721053383905" duration="5422000" />
+      <workItem from="1721060023961" duration="29000" />
     </task>
     <servers />
   </component>
