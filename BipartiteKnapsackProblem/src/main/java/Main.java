@@ -30,11 +30,11 @@ public class Main {
         //p per c is the maximum weight per truck
         //n per c is the maximum amount of palettes per truck
         TruckOptimizationBlock truckOptimizationBlock = new TruckOptimizationBlock(
-                "inputs/Algoritmo 3V2.xlsx",
-                "final",
-                2400,
-                15,
-                5,
+                "inputs/Algoritmo 4.xlsx",
+                "Foglio1",
+                2112,
+                7.111,
+                1,
                 20500,
                 64
         );
