@@ -5,9 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8a765cbc-ad33-4695-819a-88255a908980" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/inputs/Algoritmo 4.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/truck_optimization.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/truck_optimization.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/src/wasmJsMain/kotlin/org/example/project/Color.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/src/wasmJsMain/kotlin/org/example/project/enums/FunctionEnum.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/src/wasmJsMain/kotlin/org/example/project/navigation/NavigationUI.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/src/wasmJsMain/kotlin/org/example/project/screens/ScreenAnticipation.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/src/wasmJsMain/kotlin/org/example/project/screens/ScreenMain.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/src/wasmJsMain/kotlin/org/example/project/screens/ScreenOptimization.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/src/wasmJsMain/kotlin/org/example/project/viewmodels/NavigationViewModel.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,6 +121,7 @@
       <workItem from="1721053383905" duration="5422000" />
       <workItem from="1721060023961" duration="29000" />
       <workItem from="1721115234276" duration="203000" />
+      <workItem from="1723122989208" duration="16000" />
     </task>
     <servers />
   </component>
