@@ -80,6 +80,11 @@ fun ServicesElements(navigationViewModel: NavigationViewModel){
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ){
+
+        TitleTextBlock("Services", Color.White, true)
+
+        Spacer(modifier = Modifier.height(40.dp))
+
         ElementCard(
             "Truck Optimization",
             functionType == FunctionEnum.OPTIMIZATION,

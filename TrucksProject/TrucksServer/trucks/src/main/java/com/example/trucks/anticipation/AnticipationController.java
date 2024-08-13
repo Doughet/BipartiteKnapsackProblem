@@ -30,7 +30,12 @@ public class AnticipationController {
     }
 
     @PostMapping("/api/anticipation/upload")
-    public String upload(@RequestParam("file") MultipartFile file) {
+    public String upload(@RequestParam("file") MultipartFile file,
+                         @RequestParam("sheetName") String sheetName,
+                         @RequestParam("NLimit") float NLimit,
+                         @RequestParam("PLimit") float PLimit,
+                         @RequestParam("C1") int C1,
+                         @RequestParam("C2") int C2) {
         try {
             // Step 1: Read the uploaded Excel file
             XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
@@ -40,11 +45,11 @@ public class AnticipationController {
 
             TruckAnticipationBlock truckAnticipationBlock = new TruckAnticipationBlock(
                     workbook,
-                    "Avance de camion",
-                    2,
-                    5,
-                    20500,
-                    64
+                    sheetName,
+                    C1,
+                    C2,
+                    PLimit,
+                    NLimit
             );
 
             truckAnticipationBlock.startAnticipation(0.0f, 0.0f);
@@ -57,7 +62,7 @@ public class AnticipationController {
         }
     }
 
-    @GetMapping("/anticipation/download")
+    @GetMapping("/api/anticipation/download")
     public ResponseEntity<InputStreamResource> downloadExcel() {
         try {
             // Create a workbook (this could be your generated Excel file)

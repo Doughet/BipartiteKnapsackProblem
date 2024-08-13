@@ -11,6 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.example.project.enums.FunctionEnum
+import org.example.project.viewmodels.AnticipationViewModel
 import org.example.project.viewmodels.OptimisationViewModel
 import org.example.project.viewmodels.NavigationViewModel
 
@@ -20,6 +21,7 @@ fun ScreenMain(){
     //VIEWMODELS
     val navigationViewModel = remember { NavigationViewModel() }
     val optimisationViewModel = remember { OptimisationViewModel() }
+    val anticipationViewModel = remember { AnticipationViewModel() }
 
     //OBSERVABLES
     var currentFunction = navigationViewModel.getFunctionObservable().collectAsState().value
@@ -50,7 +52,7 @@ fun ScreenMain(){
             if (currentFunction == FunctionEnum.OPTIMIZATION) {
                 TruckOptimisationScreen(navigationViewModel, optimisationViewModel)
             } else if (currentFunction == FunctionEnum.ANTICIPATION) {
-                TruckOptimizationScreen(navigationViewModel)
+                TruckAnticipationScreen(navigationViewModel, anticipationViewModel)
             }
 
         }

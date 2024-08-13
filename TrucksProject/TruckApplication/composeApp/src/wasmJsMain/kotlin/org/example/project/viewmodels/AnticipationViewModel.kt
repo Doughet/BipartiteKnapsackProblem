@@ -4,38 +4,33 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import kotlinx.browser.document
 import org.khronos.webgl.ArrayBuffer
-import org.w3c.dom.HTMLInputElement
-import org.w3c.files.File
-import org.w3c.files.FileReader
 import org.khronos.webgl.Int8Array
 import org.khronos.webgl.get
 import org.khronos.webgl.set
 import org.w3c.dom.HTMLAnchorElement
+import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.url.URL
 import org.w3c.files.Blob
 import org.w3c.files.BlobPropertyBag
+import org.w3c.files.File
+import org.w3c.files.FileReader
 import org.w3c.xhr.BLOB
 import org.w3c.xhr.FormData
 import org.w3c.xhr.XMLHttpRequest
 import org.w3c.xhr.XMLHttpRequestResponseType
 
-
-class OptimisationViewModel {
-
+class AnticipationViewModel {
     val sheetName : MutableState<String> = mutableStateOf("")
     val NLimit : MutableState<Float> = mutableStateOf(0.0f)
     val PLimit : MutableState<Float> = mutableStateOf(0.0f)
 
-    val fixedN : MutableState<Float> = mutableStateOf(0.0f)
-    val fixedP : MutableState<Float> = mutableStateOf(0.0f)
+    val C1 : MutableState<Int> = mutableStateOf(0)
+    val C2 : MutableState<Int> = mutableStateOf(0)
 
-    val totalTrucks : MutableState<Int> = mutableStateOf(0)
-
-    val fileOptimisation : MutableState<ByteArray?> = mutableStateOf(null)
+    val fileAnticipation : MutableState<ByteArray?> = mutableStateOf(null)
 
     var isLoaded : Boolean = false
     val jsArray : MutableState<JsArray<JsAny?>> = mutableStateOf(JsArray<JsAny?>())
-
 
     fun setSheetName(text : String){
         sheetName.value = text
@@ -61,32 +56,22 @@ class OptimisationViewModel {
         PLimit.value = pLimit
     }
 
-    fun getFixedN() : Float{
-        return fixedN.value
+
+    fun getC1() : Int{
+        return C1.value
     }
 
-    fun setFixedN(fixedN : Float){
-        this.fixedN.value = fixedN
+    fun setC1(C1 : Int){
+        this.C1.value = C1
     }
 
-
-    fun getFixedP() : Float{
-        return fixedP.value
+    fun getC2() : Int{
+        return C2.value
     }
 
-    fun setFixedP(fixedP : Float){
-        this.fixedP.value = fixedP
+    fun setC2(C2 : Int){
+        this.C2.value = C2
     }
-
-    fun getTotalTrucks() : Int{
-        return totalTrucks.value
-    }
-
-    fun setTotalTrucks(trucks : Int){
-        totalTrucks.value = trucks
-    }
-
-
 
     fun pickFile(onFilePicked: (ByteArray, String) -> Unit){
         // Create an HTML input element dynamically
@@ -108,9 +93,9 @@ class OptimisationViewModel {
                         val byteArray = ByteArray(int8Array.length) { index -> int8Array[index] }
                         // Call the callback with the ByteArray and file name
                         //onFilePicked(byteArray, file.name)
-                        fileOptimisation.value = byteArray
+                        fileAnticipation.value = byteArray
                         postFileUpload()
-                        postOptimisation()
+                        postAnticipation()
                     }
                 }
                 reader.readAsArrayBuffer(file)
@@ -121,27 +106,12 @@ class OptimisationViewModel {
         inputElement.click()
     }
 
-    fun postTest(){
-        val xhr = XMLHttpRequest()
-
-        xhr.open("POST", "http://localhost:8080/api/thisistest")
-        xhr.setRequestHeader("Content-Type", "application/json")
-
-        xhr.onload = {
-
-        }
-
-        xhr.send()
-    }
-
-
-
     fun postFileUpload(){
-        val buffer = ArrayBuffer(fileOptimisation.value!!.size)
+        val buffer = ArrayBuffer(fileAnticipation.value!!.size)
         val view = Int8Array(buffer)
 
         // Populate the ArrayBuffer with the ByteArray data
-        fileOptimisation.value!!.forEachIndexed { index, byte ->
+        fileAnticipation.value!!.forEachIndexed { index, byte ->
             view[index] = byte
         }
 
@@ -150,11 +120,7 @@ class OptimisationViewModel {
         isLoaded = true
     }
 
-
-
-
-
-    fun postOptimisation() : Boolean{
+    fun postAnticipation() : Boolean{
         if(!isLoaded){
             return false
         }
@@ -164,19 +130,15 @@ class OptimisationViewModel {
         // Create a Blob from the Uint8Array
         val blob = Blob(jsArray.value, BlobPropertyBag("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
 
-
-
         val formData = FormData()
         formData.append("file", blob)
         formData.append("sheetName", sheetName.value)
         formData.append("NLimit", NLimit.value.toString())
         formData.append("PLimit", PLimit.value.toString())
-        formData.append("FixedN", fixedN.value.toString())
-        formData.append("FixedP", fixedP.value.toString())
-        formData.append("totalTrucks", totalTrucks.value.toString())
+        formData.append("C1", C1.value.toString())
+        formData.append("C2", C2.value.toString())
 
-
-        xhr.open("POST", "http://localhost:8080/api/optimisation/upload")
+        xhr.open("POST", "http://localhost:8080/api/anticipation/upload")
         xhr.setRequestHeader("Accept", "text/plain") // Expecting a plain text response
 
         xhr.onload = {
@@ -195,7 +157,7 @@ class OptimisationViewModel {
     fun downloadExcelFile() {
         val xhr = XMLHttpRequest()
 
-        xhr.open("GET", "http://localhost:8080/api/optimisation/download", true)
+        xhr.open("GET", "http://localhost:8080/api/anticipation/download", true)
         xhr.responseType = XMLHttpRequestResponseType.BLOB
 
         xhr.onload = {
@@ -206,7 +168,7 @@ class OptimisationViewModel {
                 // Create a link element and trigger a download
                 val link = document.createElement("a") as HTMLAnchorElement
                 link.href = url
-                link.download = "truck_optimisation.xlsx"
+                link.download = "truck_anticipation.xlsx"
                 document.body?.appendChild(link)
                 link.click()
                 document.body?.removeChild(link)

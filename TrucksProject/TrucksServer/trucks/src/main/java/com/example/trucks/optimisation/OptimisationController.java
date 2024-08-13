@@ -64,7 +64,7 @@ public class OptimisationController {
         }
     }
 
-    @GetMapping("/optimisation/download")
+    @GetMapping("/api/optimisation/download")
     public ResponseEntity<InputStreamResource> downloadExcel() {
         try {
             // Create a workbook (this could be your generated Excel file)

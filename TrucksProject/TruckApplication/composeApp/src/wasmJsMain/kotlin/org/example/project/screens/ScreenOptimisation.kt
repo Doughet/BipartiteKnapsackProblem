@@ -30,9 +30,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.example.project.DarkGrayCustom
@@ -46,14 +48,17 @@ import org.example.project.viewmodels.NavigationViewModel
 import org.w3c.files.File
 
 @Composable
-fun TitleTextBlock(text : String, color: Color = DarkGrayCustom){
+fun TitleTextBlock(text : String, color: Color = DarkGrayCustom, underLined : Boolean = false){
+    val textDecoration = if(!underLined) TextDecoration.None else TextDecoration.Underline
+
     Text(
         text = text,
         fontWeight = FontWeight.Bold,
         color = color,
         fontSize = 28.sp,
         textAlign = TextAlign.Center,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        textDecoration = textDecoration
     )
 }
 
@@ -152,7 +157,7 @@ fun MainButton(onButtonClick: () -> Unit){
         contentPadding = PaddingValues(vertical = 12.dp)
         ){
 
-        SubTitleTextBlock("Download Result", color = Color.White)
+        SubTitleTextBlock("Process Solution", color = Color.White)
 
     }
 }
@@ -307,7 +312,7 @@ fun Optimisationblock(
 
         TitleTextBlock("Excel Command File")
 
-        Spacer(Modifier.height(40.dp))
+        Spacer(Modifier.height(10.dp))
 
         AddingFileButton(onButtonClick)
 
@@ -334,7 +339,7 @@ fun Optimisationblock(
         Spacer(Modifier.height(30.dp))
 
         ColumnInputCustom(
-            "Total Trucks Amout:",
+            "Non-Fixed Trucks Number:",
             totalTrucks,
             onTotalTrucksChange
         )
@@ -353,7 +358,7 @@ fun TruckOptimisationScreen(navigationViewModel: NavigationViewModel,
 
     Scaffold(
         topBar = { TopBarCustom("Truck Optimisation", {}) },
-        bottomBar = { BottomNavigationBarCustom(navigationViewModel) }
+        //bottomBar = { BottomNavigationBarCustom(navigationViewModel) }
     ){
 
         Box(
@@ -366,7 +371,7 @@ fun TruckOptimisationScreen(navigationViewModel: NavigationViewModel,
                     optimisationViewModel.setSheetName(sheetName)
                 },
                 {
-                    optimisationViewModel.pickFileOpti{ byteArray, name ->
+                    optimisationViewModel.pickFile{ byteArray, name ->
                     }
                 },
                 optimisationViewModel.getNLimit().toString(),
