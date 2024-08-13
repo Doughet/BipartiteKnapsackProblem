@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import org.example.project.enums.FunctionEnum
 
 class NavigationViewModel {
-    val currentFunction : MutableStateFlow<FunctionEnum> = MutableStateFlow<FunctionEnum>(FunctionEnum.ANTICIPATION)
+    val currentFunction : MutableStateFlow<FunctionEnum> = MutableStateFlow<FunctionEnum>(FunctionEnum.OPTIMIZATION)
 
     fun navigateToOptimization(){
         currentFunction.value = FunctionEnum.OPTIMIZATION

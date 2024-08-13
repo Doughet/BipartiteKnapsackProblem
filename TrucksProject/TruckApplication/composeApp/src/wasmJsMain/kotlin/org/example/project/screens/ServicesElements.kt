@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ModifierInfo
 import androidx.compose.ui.unit.dp
@@ -38,8 +39,10 @@ fun ElementCard(
     Box(
         modifier = Modifier
             .fillMaxWidth(0.8f)
-            .clickable(onClick = onClick),
-        contentAlignment = Alignment.Center
+            .clickable(onClick = onClick)
+            .background(Color.White, RoundedCornerShape(12.dp))
+            .shadow(elevation = 5.dp),
+        contentAlignment = Alignment.Center,
     ){
         Column(
             modifier = Modifier
@@ -78,20 +81,20 @@ fun ServicesElements(navigationViewModel: NavigationViewModel){
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         ElementCard(
-            "Truck Anticipation",
-            functionType == FunctionEnum.ANTICIPATION,
+            "Truck Optimization",
+            functionType == FunctionEnum.OPTIMIZATION,
             {
-                navigationViewModel.navigateToAnticipation()
+                navigationViewModel.navigateToOptimization()
             }
         )
 
         Spacer(modifier = Modifier.height(30.dp))
 
         ElementCard(
-            "Truck Optimization",
-            functionType == FunctionEnum.OPTIMIZATION,
+            "Truck Anticipation",
+            functionType == FunctionEnum.ANTICIPATION,
             {
-                navigationViewModel.navigateToOptimization()
+                navigationViewModel.navigateToAnticipation()
             }
         )
     }

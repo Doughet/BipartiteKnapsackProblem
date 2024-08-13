@@ -5,13 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8a765cbc-ad33-4695-819a-88255a908980" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/src/wasmJsMain/kotlin/org/example/project/Color.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/src/wasmJsMain/kotlin/org/example/project/enums/FunctionEnum.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/src/wasmJsMain/kotlin/org/example/project/navigation/NavigationUI.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/src/wasmJsMain/kotlin/org/example/project/screens/ScreenAnticipation.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/src/wasmJsMain/kotlin/org/example/project/screens/ScreenMain.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/src/wasmJsMain/kotlin/org/example/project/screens/ScreenOptimization.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/src/wasmJsMain/kotlin/org/example/project/viewmodels/NavigationViewModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/src/wasmJsMain/kotlin/org/example/project/datamodels/AnticipationParamsModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/src/wasmJsMain/kotlin/org/example/project/screens/ScreenOptimisation.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/src/wasmJsMain/kotlin/org/example/project/viewmodels/OptimisationViewModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TrucksProject/TrucksServer/trucks/src/main/java/com/example/trucks/WebConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TrucksProject/TrucksServer/trucks/src/main/java/com/example/trucks/anticipation/AnticipationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TrucksProject/TrucksServer/trucks/src/main/java/com/example/trucks/anticipation/solver/TruckAnticipationBlock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TrucksProject/TrucksServer/trucks/src/main/java/com/example/trucks/anticipation/solver/TruckAnticipationDP.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TrucksProject/TrucksServer/trucks/src/main/java/com/example/trucks/anticipation/solver/TruckAnticipationSolver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TrucksProject/TrucksServer/trucks/src/main/java/com/example/trucks/anticipation/solver/TruckAnticipationWriter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TrucksProject/TrucksServer/trucks/src/main/java/com/example/trucks/optimisation/OptimisationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/src/wasmJsMain/kotlin/org/example/project/screens/ScreenAnticipation.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/src/wasmJsMain/kotlin/org/example/project/screens/ScreenAnticipation.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/src/wasmJsMain/kotlin/org/example/project/screens/ScreenMain.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/src/wasmJsMain/kotlin/org/example/project/screens/ScreenMain.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/src/wasmJsMain/kotlin/org/example/project/screens/ScreenOptimization.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/src/wasmJsMain/kotlin/org/example/project/screens/ServicesElements.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/src/wasmJsMain/kotlin/org/example/project/screens/ServicesElements.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/src/wasmJsMain/kotlin/org/example/project/viewmodels/AnticipationViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/src/wasmJsMain/kotlin/org/example/project/viewmodels/NavigationViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../TrucksProject/TruckApplication/composeApp/src/wasmJsMain/kotlin/org/example/project/viewmodels/NavigationViewModel.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,6 +133,11 @@
       <workItem from="1721060023961" duration="29000" />
       <workItem from="1721115234276" duration="203000" />
       <workItem from="1723122989208" duration="16000" />
+      <workItem from="1723466995245" duration="309000" />
+      <workItem from="1723467864423" duration="2496000" />
+      <workItem from="1723542338974" duration="424000" />
+      <workItem from="1723550210388" duration="2339000" />
+      <workItem from="1723554734855" duration="7000" />
     </task>
     <servers />
   </component>

@@ -19,6 +19,7 @@ kotlin {
                 devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
                     static = (static ?: mutableListOf()).apply {
                         // Serve sources to debug inside browser
+                        port = 8081
                         add(projectDirPath)
                     }
                 }
