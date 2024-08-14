@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.http.HttpResponse;
 
@@ -30,18 +31,61 @@ public class AnticipationController {
     }
 
     @PostMapping("/api/anticipation/upload")
-    public String upload(@RequestParam("file") MultipartFile file,
-                         @RequestParam("sheetName") String sheetName,
-                         @RequestParam("NLimit") float NLimit,
-                         @RequestParam("PLimit") float PLimit,
-                         @RequestParam("C1") int C1,
-                         @RequestParam("C2") int C2) {
+    public String upload(@RequestParam("file") MultipartFile file) {
         try {
             // Step 1: Read the uploaded Excel file
             XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
 
             // Step 2: Process the workbook (for example, add a new sheet)
             logger.info("THIS IS A LOG BECAUSE YOU DIDNT BREAK");
+
+            /*
+            TruckAnticipationBlock truckAnticipationBlock = new TruckAnticipationBlock(
+                    workbook,
+                    sheetName,
+                    C1,
+                    C2,
+                    PLimit,
+                    NLimit
+            );
+
+            truckAnticipationBlock.startAnticipation(0.0f, 0.0f);
+
+             */
+
+
+            // Define the path and filename for the Excel file
+            String filePath = "input_anticipation.xlsx"; // This will save the file in the current working directory
+            // Alternatively, you can specify an absolute path, e.g., "/path/to/directory/input_optimisation.xlsx"
+
+            try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
+                // Write the workbook to the file
+                workbook.write(fileOut);
+                // Close the workbook
+                workbook.close();
+                logger.info("Excel file 'input_anticipation.xlsx' created successfully.");
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Failed to save the Excel file.");
+            }
+
+            return "";
+
+        }catch (IOException e){
+
+            return "";
+        }
+    }
+
+    @PostMapping("/api/anticipation/download")
+    public ResponseEntity<InputStreamResource> downloadExcel(@RequestParam("sheetName") String sheetName,
+                                                             @RequestParam("NLimit") float NLimit,
+                                                             @RequestParam("PLimit") float PLimit,
+                                                             @RequestParam("C1") int C1,
+                                                             @RequestParam("C2") int C2) {
+        try {
+
+            XSSFWorkbook workbook = new XSSFWorkbook("input_anticipation.xlsx");
 
             TruckAnticipationBlock truckAnticipationBlock = new TruckAnticipationBlock(
                     workbook,
@@ -54,22 +98,11 @@ public class AnticipationController {
 
             truckAnticipationBlock.startAnticipation(0.0f, 0.0f);
 
-            return "";
-
-        }catch (IOException e){
-
-            return "";
-        }
-    }
-
-    @GetMapping("/api/anticipation/download")
-    public ResponseEntity<InputStreamResource> downloadExcel() {
-        try {
             // Create a workbook (this could be your generated Excel file)
-            XSSFWorkbook workbook = new XSSFWorkbook("truck_anticipation.xlsx");
+            XSSFWorkbook result = new XSSFWorkbook("truck_anticipation.xlsx");
             ByteArrayOutputStream out = new ByteArrayOutputStream();
-            workbook.write(out);
-            workbook.close();
+            result.write(out);
+            result.close();
 
             // Convert the workbook to an InputStream
             ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());

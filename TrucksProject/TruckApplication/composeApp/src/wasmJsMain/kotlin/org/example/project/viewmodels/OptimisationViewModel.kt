@@ -168,12 +168,6 @@ class OptimisationViewModel {
 
         val formData = FormData()
         formData.append("file", blob)
-        formData.append("sheetName", sheetName.value)
-        formData.append("NLimit", NLimit.value.toString())
-        formData.append("PLimit", PLimit.value.toString())
-        formData.append("FixedN", fixedN.value.toString())
-        formData.append("FixedP", fixedP.value.toString())
-        formData.append("totalTrucks", totalTrucks.value.toString())
 
 
         xhr.open("POST", "http://localhost:8080/api/optimisation/upload")
@@ -181,7 +175,7 @@ class OptimisationViewModel {
 
         xhr.onload = {
             if (xhr.status == 200.toShort()) {
-                downloadExcelFile()
+
             } else {
 
             }
@@ -195,7 +189,17 @@ class OptimisationViewModel {
     fun downloadExcelFile() {
         val xhr = XMLHttpRequest()
 
-        xhr.open("GET", "http://localhost:8080/api/optimisation/download", true)
+        val formData = FormData()
+        formData.append("sheetName", sheetName.value)
+        formData.append("NLimit", NLimit.value.toString())
+        formData.append("PLimit", PLimit.value.toString())
+        formData.append("FixedN", fixedN.value.toString())
+        formData.append("FixedP", fixedP.value.toString())
+        formData.append("totalTrucks", totalTrucks.value.toString())
+
+
+        xhr.open("POST", "http://localhost:8080/api/optimisation/download", true)
+
         xhr.responseType = XMLHttpRequestResponseType.BLOB
 
         xhr.onload = {
@@ -218,7 +222,7 @@ class OptimisationViewModel {
         xhr.onerror = {
         }
 
-        xhr.send()
+        xhr.send(formData)
     }
 
 }

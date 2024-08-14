@@ -132,7 +132,7 @@ fun TruckAnticipationScreen(navigationViewModel : NavigationViewModel, anticipat
                 anticipationViewModel.getNLimit().toString(),
                 {nLimit ->
                     try {
-                        anticipationViewModel.setNLimit(nLimit.toFloat())
+                        anticipationViewModel.setNLimit((nLimit + "0").toFloat())
                     }catch (e : Exception){
                         anticipationViewModel.setNLimit(0f)
                     }
@@ -140,7 +140,7 @@ fun TruckAnticipationScreen(navigationViewModel : NavigationViewModel, anticipat
                 anticipationViewModel.getPLimit().toString(),
                 {pLimit ->
                     try {
-                        anticipationViewModel.setPLimit(pLimit.toFloat())
+                        anticipationViewModel.setPLimit((pLimit + "0").toFloat())
                     }catch (e : Exception){
                         anticipationViewModel.setPLimit(0f)
                     }
@@ -162,7 +162,7 @@ fun TruckAnticipationScreen(navigationViewModel : NavigationViewModel, anticipat
                     }
                 },
                 {
-                    anticipationViewModel.postAnticipation()
+                    anticipationViewModel.downloadExcelFile()
                 }
             )
         }

@@ -417,7 +417,7 @@ fun TruckOptimisationScreen(navigationViewModel: NavigationViewModel,
                     }
                 },
                 {
-                    optimisationViewModel.postOptimisation()
+                    optimisationViewModel.downloadExcelFile()
                 }
             )
         }

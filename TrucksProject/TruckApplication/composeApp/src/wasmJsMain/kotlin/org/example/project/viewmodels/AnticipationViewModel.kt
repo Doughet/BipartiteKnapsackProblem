@@ -73,6 +73,14 @@ class AnticipationViewModel {
         this.C2.value = C2
     }
 
+    fun convertFloatToString(number: Float): String {
+        return if (number == number.toLong().toFloat()) {
+            number.toLong().toString() // Convert to Long and then to String if there's no decimal part
+        } else {
+            number.toString() // Keep the decimal part if it exists
+        }
+    }
+
     fun pickFile(onFilePicked: (ByteArray, String) -> Unit){
         // Create an HTML input element dynamically
         val inputElement = document.createElement("input") as HTMLInputElement
@@ -132,18 +140,13 @@ class AnticipationViewModel {
 
         val formData = FormData()
         formData.append("file", blob)
-        formData.append("sheetName", sheetName.value)
-        formData.append("NLimit", NLimit.value.toString())
-        formData.append("PLimit", PLimit.value.toString())
-        formData.append("C1", C1.value.toString())
-        formData.append("C2", C2.value.toString())
 
         xhr.open("POST", "http://localhost:8080/api/anticipation/upload")
         xhr.setRequestHeader("Accept", "text/plain") // Expecting a plain text response
 
         xhr.onload = {
             if (xhr.status == 200.toShort()) {
-                downloadExcelFile()
+
             } else {
 
             }
@@ -157,7 +160,15 @@ class AnticipationViewModel {
     fun downloadExcelFile() {
         val xhr = XMLHttpRequest()
 
-        xhr.open("GET", "http://localhost:8080/api/anticipation/download", true)
+        val formData = FormData()
+        formData.append("sheetName", sheetName.value)
+        formData.append("NLimit", NLimit.value.toString())
+        formData.append("PLimit", PLimit.value.toString())
+        formData.append("C1", C1.value.toString())
+        formData.append("C2", C2.value.toString())
+
+
+        xhr.open("POST", "http://localhost:8080/api/anticipation/download", true)
         xhr.responseType = XMLHttpRequestResponseType.BLOB
 
         xhr.onload = {
@@ -180,7 +191,7 @@ class AnticipationViewModel {
         xhr.onerror = {
         }
 
-        xhr.send()
+        xhr.send(formData)
     }
 
 }

@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 @RestController
@@ -30,13 +31,7 @@ public class OptimisationController {
     }
 
     @PostMapping("/api/optimisation/upload")
-    public String upload(@RequestParam("file") MultipartFile file,
-                         @RequestParam("sheetName") String sheetName,
-                         @RequestParam("NLimit") float NLimit,
-                         @RequestParam("PLimit") float PLimit,
-                         @RequestParam("FixedN") float FixedN,
-                         @RequestParam("FixedP") float FixedP,
-                         @RequestParam("totalTrucks") int totalTrucks) {
+    public String upload(@RequestParam("file") MultipartFile file) {
         try {
             // Step 1: Read the uploaded Excel file
             XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
@@ -44,6 +39,8 @@ public class OptimisationController {
             // Step 2: Process the workbook (for example, add a new sheet)
             logger.info("THIS IS A LOG BECAUSE YOU DIDNT BREAK");
 
+
+            /*
             TruckOptimisationBlock truckOptimizationBlock = new TruckOptimisationBlock(
                     workbook,
                     sheetName,
@@ -57,6 +54,23 @@ public class OptimisationController {
             truckOptimizationBlock.startOtpimisation(0.0f, 0.0f);
 
             return "";
+             */
+
+            // Define the path and filename for the Excel file
+            String filePath = "input_optimisation.xlsx"; // This will save the file in the current working directory
+            // Alternatively, you can specify an absolute path, e.g., "/path/to/directory/input_optimisation.xlsx"
+
+            try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
+                // Write the workbook to the file
+                workbook.write(fileOut);
+                // Close the workbook
+                workbook.close();
+                logger.info("Excel file 'input_optimisation.xlsx' created successfully.");
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Failed to save the Excel file.");
+            }
+            return "";
 
         }catch (IOException e){
 
@@ -64,14 +78,35 @@ public class OptimisationController {
         }
     }
 
-    @GetMapping("/api/optimisation/download")
-    public ResponseEntity<InputStreamResource> downloadExcel() {
+    @PostMapping("/api/optimisation/download")
+    public ResponseEntity<InputStreamResource> downloadExcel(@RequestParam("sheetName") String sheetName,
+                                                             @RequestParam("NLimit") float NLimit,
+                                                             @RequestParam("PLimit") float PLimit,
+                                                             @RequestParam("FixedN") float FixedN,
+                                                             @RequestParam("FixedP") float FixedP,
+                                                             @RequestParam("totalTrucks") int totalTrucks) {
         try {
+
+            XSSFWorkbook workbook = new XSSFWorkbook("input_optimisation.xlsx");
+
+            TruckOptimisationBlock truckOptimizationBlock = new TruckOptimisationBlock(
+                    workbook,
+                    sheetName,
+                    FixedP,
+                    FixedN,
+                    totalTrucks,
+                    PLimit,
+                    NLimit
+            );
+
+            truckOptimizationBlock.startOtpimisation(0.0f, 0.0f);
+
+
             // Create a workbook (this could be your generated Excel file)
-            XSSFWorkbook workbook = new XSSFWorkbook("truck_optimization.xlsx");
+            XSSFWorkbook result = new XSSFWorkbook("truck_optimization.xlsx");
             ByteArrayOutputStream out = new ByteArrayOutputStream();
-            workbook.write(out);
-            workbook.close();
+            result.write(out);
+            result.close();
 
             // Convert the workbook to an InputStream
             ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
